@@ -43,10 +43,9 @@ public class GenerateActionListener implements ActionListener {
                 JOptionPane.PLAIN_MESSAGE);
 
         if (selection == JOptionPane.OK_OPTION) {
-            graph.clear();
-            generateGraph(graph, n);
-
-            setCounterPanel(graph);
+            this.graph.clear();
+            generateGraph(this.graph, n);
+            setCounterPanel(this.graph);
         }
     }
 
@@ -59,6 +58,10 @@ public class GenerateActionListener implements ActionListener {
             gen.nextEvents();
         }
         gen.end();
+
+        graph.addAttribute("ui.stylesheet", "url('style.css')");
+        graph.addAttribute("ui.quality");
+        graph.addAttribute("ui.antialias");
     }
 
     private void setCounterPanel(Graph graph) {
@@ -91,7 +94,7 @@ public class GenerateActionListener implements ActionListener {
         setListGenerator(panel);
         setSpinner(panel);
 
-        panel.setPreferredSize(new Dimension(300, 120));
+        panel.setPreferredSize(new Dimension(300, 100));
         return panel;
     }
 
@@ -100,10 +103,8 @@ public class GenerateActionListener implements ActionListener {
         this.list = new JList<>(listModel);
         this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.list.setSelectedIndex(selectedGenerator.getId());
-        this.list.addListSelectionListener(e -> {
-            this.selectedGenerator = SelectedGenerator.valueOf(list.getSelectedIndex())
-                    .orElse(SelectedGenerator.RANDOM_GENERATOR);
-        });
+        this.list.addListSelectionListener(e -> this.selectedGenerator = SelectedGenerator.valueOf(list.getSelectedIndex())
+                .orElse(SelectedGenerator.RANDOM_GENERATOR));
         this.list.setVisibleRowCount(3);
 
         panel.add(spinnerLabel);
@@ -115,9 +116,7 @@ public class GenerateActionListener implements ActionListener {
         SpinnerModel model = new SpinnerNumberModel(this.n, 1, 1000, 1);
         JSpinner spinner = new JSpinner(model);
 
-        spinner.addChangeListener((e -> {
-            this.n = (int) spinner.getValue();
-        }));
+        spinner.addChangeListener((e -> this.n = (int) spinner.getValue()));
 
         panel.add(spinnerLabel);
         panel.add(spinner);

@@ -13,11 +13,18 @@ public class GraphColoringFrame extends JFrame {
 
     public GraphColoringFrame() throws HeadlessException {
         this.setTitle("GraphColoring");
-        this.graph = new SingleGraph("Graph");
-        this.graph.addAttribute("ui.quality");
-        this.graph.addAttribute("ui.antialias");
+        this.graph = getDefaultGraph();
 
         initUI();
+    }
+
+    private Graph getDefaultGraph() {
+        Graph graph = new SingleGraph("Graph");
+        graph.addAttribute("ui.stylesheet", "url('style.css')");
+        graph.addAttribute("ui.quality");
+        graph.addAttribute("ui.antialias");
+
+        return graph;
     }
 
     private void initUI() {
