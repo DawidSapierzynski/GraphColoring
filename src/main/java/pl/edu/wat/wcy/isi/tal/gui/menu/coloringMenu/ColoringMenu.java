@@ -17,7 +17,7 @@ public class ColoringMenu extends JMenu {
         JMenuItem SLAlgorithmMenuItem = new JMenuItem("SL algorithm");
         SLAlgorithmMenuItem.setToolTipText("Smallest last algorithm");
 
-        JMenuItem resetMenuItem = new JMenuItem("Reset");
+        JMenuItem resetMenuItem = new JMenuItem("Reset colors");
         resetMenuItem.setToolTipText("Reset colors");
 
         exactAlgorithmMenuItem.addActionListener(new ExactAlgorithmActionListener(graph));

@@ -15,7 +15,7 @@ public class FileMenu extends JMenu {
     private void initUI(Graph graph) {
         this.setMnemonic(KeyEvent.VK_F);
 
-        JMenuItem generateMenuItem = new JMenuItem("Generate", KeyEvent.VK_G);
+        JMenuItem generateMenuItem = new JMenuItem("Generate graph", KeyEvent.VK_G);
         generateMenuItem.setToolTipText("Generate new graph");
 
         JMenuItem exitMenuItem = new JMenuItem("Exit", KeyEvent.VK_E);

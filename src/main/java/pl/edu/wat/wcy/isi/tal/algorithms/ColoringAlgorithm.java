@@ -6,6 +6,7 @@ import org.graphstream.graph.Graph;
 public abstract class ColoringAlgorithm implements Algorithm {
     protected Graph graph;
     private int numberSteps = 0;
+    private int numberColors = 0;
 
     @Override
     public void init(Graph graph) {
@@ -22,5 +23,13 @@ public abstract class ColoringAlgorithm implements Algorithm {
 
     public int getNumberSteps() {
         return numberSteps;
+    }
+
+    public int getNumberColors() {
+        return numberColors;
+    }
+
+    protected void setNumberColors(int numberColors) {
+        this.numberColors = numberColors;
     }
 }
