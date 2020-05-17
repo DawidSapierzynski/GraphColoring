@@ -1,6 +1,8 @@
 package pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu;
 
 import org.graphstream.graph.Graph;
+import pl.edu.wat.wcy.isi.tal.algorithms.SLAlgorithm;
+import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,12 +20,10 @@ public class SLAlgorithmActionListener implements ActionListener {
         if (graph.getNodeCount() == 0 && graph.getEdgeCount() == 0) {
             JOptionPane.showMessageDialog(null, "The graph is empty.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-//            SLAlgorithm slAlgorithm = new SLAlgorithm();
-//            slAlgorithm.init(graph);
-//            slAlgorithm.compute();
-//            CounterPanel.getInstance().setStepCount(slAlgorithm.getNumberSteps());
-
-            JOptionPane.showMessageDialog(null, "No implementation ...");
+            SLAlgorithm slAlgorithm = new SLAlgorithm();
+            slAlgorithm.init(graph);
+            slAlgorithm.compute();
+            CounterPanel.getInstance().setStepColorCount(slAlgorithm.getNumberSteps(), slAlgorithm.getNumberColors());
         }
     }
 }
