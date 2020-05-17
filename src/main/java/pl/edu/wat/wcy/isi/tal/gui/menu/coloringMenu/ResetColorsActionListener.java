@@ -1,6 +1,7 @@
 package pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu;
 
 import org.graphstream.graph.Graph;
+import pl.edu.wat.wcy.isi.tal.algorithms.ColoringAlgorithm;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,10 +16,10 @@ public class ResetColorsActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (graph.getNodeCount() == 0 && graph.getEdgeCount() == 0) {
+        if (this.graph.getNodeCount() == 0 && this.graph.getEdgeCount() == 0) {
             JOptionPane.showMessageDialog(null, "The graph is empty.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "No implementation ...");
+            ColoringAlgorithm.restartColors(this.graph);
         }
     }
 }

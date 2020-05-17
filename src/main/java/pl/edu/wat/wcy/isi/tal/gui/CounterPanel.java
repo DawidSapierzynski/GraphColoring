@@ -8,12 +8,14 @@ public class CounterPanel extends JPanel {
 
     private int nodeCount = 0;
     private int edgeCount = 0;
-    private int stepCount = 0;
     private int colorCount = 0;
+    private long stepCount = 0;
+
     private JLabel nodeCountLabel;
     private JLabel edgeCountLabel;
-    private JLabel stepCountLabel;
     private JLabel colorCountLabel;
+    private JLabel stepCountLabel;
+
 
     private CounterPanel() {
         initUI();
@@ -23,12 +25,14 @@ public class CounterPanel extends JPanel {
     private void initUI() {
         this.nodeCountLabel = new JLabel();
         this.edgeCountLabel = new JLabel();
-        this.stepCountLabel = new JLabel();
         this.colorCountLabel = new JLabel();
+        this.stepCountLabel = new JLabel();
+
         this.add(nodeCountLabel);
         this.add(edgeCountLabel);
-        this.add(stepCountLabel);
         this.add(colorCountLabel);
+        this.add(stepCountLabel);
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
     }
@@ -43,19 +47,19 @@ public class CounterPanel extends JPanel {
     public void update() {
         nodeCountLabel.setText("Nodes: " + nodeCount);
         edgeCountLabel.setText("Edges: " + edgeCount);
-        stepCountLabel.setText("Steps: " + stepCount);
         colorCountLabel.setText("Colors: " + colorCount);
+        stepCountLabel.setText("Steps: " + stepCount);
     }
 
     public void setNodeEdgeCount(int nodeCount, int edgeCount) {
         this.nodeCount = nodeCount;
         this.edgeCount = edgeCount;
-        this.stepCount = 0;
         this.colorCount = 0;
+        this.stepCount = 0;
         update();
     }
 
-    public void setStepColorCount(int stepCount, int colorCount) {
+    public void setStepColorCount(long stepCount, int colorCount) {
         this.stepCount = stepCount;
         this.colorCount = colorCount;
         update();

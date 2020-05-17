@@ -1,6 +1,11 @@
 node {
-    /*size: 15px;*/
-    /*fill-mode: dyn-plain;*/
-    /*fill-color: blue, green, red;*/
-    /*text-style: bold;*/
+    fill-mode: dyn-plain;
+}
+
+node:clicked {
+    fill-color: blue;
+}
+
+node:selected {
+    fill-color: blue;
 }

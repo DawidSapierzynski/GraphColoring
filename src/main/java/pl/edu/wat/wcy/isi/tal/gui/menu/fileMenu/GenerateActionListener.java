@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.stream.Stream;
 
 public class GenerateActionListener implements ActionListener {
-    private static final int GRID_GENERATOR_MAX_STEPS = 50;
-    private static final int FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS = 40;
+    private static final int GRID_GENERATOR_MAX_STEPS = 40;
+    private static final int FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS = 30;
     private static final DefaultListModel<String> listModel = getListModelGenerate();
 
     private final Graph graph;
@@ -44,17 +44,17 @@ public class GenerateActionListener implements ActionListener {
 
         if (selection == JOptionPane.OK_OPTION) {
             this.graph.clear();
-            generateGraph(this.graph, n);
+            generateGraph(this.graph);
             setCounterPanel(this.graph);
         }
     }
 
-    private void generateGraph(Graph graph, int n) {
+    private void generateGraph(Graph graph) {
         Generator gen = getGenerator(selectedGenerator);
         gen.addSink(graph);
 
         gen.begin();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < this.n; i++) {
             gen.nextEvents();
         }
         gen.end();
@@ -71,13 +71,13 @@ public class GenerateActionListener implements ActionListener {
     private Generator getGenerator(SelectedGenerator selectedGenerator) {
         switch (selectedGenerator) {
             case GRID_GENERATOR:
-                if (n > GRID_GENERATOR_MAX_STEPS) {
-                    n = GRID_GENERATOR_MAX_STEPS;
+                if (this.n > GRID_GENERATOR_MAX_STEPS) {
+                    this.n = GRID_GENERATOR_MAX_STEPS;
                 }
                 return new GridGenerator();
             case FULL_CONNECTED_GRAPH_GENERATOR:
-                if (n > FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS) {
-                    n = FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS;
+                if (this.n > FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS) {
+                    this.n = FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS;
                 }
                 return new FullGenerator();
             case WATTS_STROGATZ_GENERATOR:
