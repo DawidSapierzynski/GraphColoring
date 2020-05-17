@@ -28,7 +28,7 @@ public class SLAlgorithm extends ColoringAlgorithm {
 
         while (copyGraph.getNodeCount() > 0 || copyGraph.getEdgeCount() > 0) {
             incrementSteps();
-            incrementMemories();
+            incrementAmountOfSpace();
             minNode = copyGraph.getNodeSet().stream()
                     .min(Comparator.comparing(Node::getDegree))
                     .orElseThrow(NoSuchElementException::new);

@@ -17,12 +17,12 @@ public abstract class ColoringAlgorithm implements Algorithm {
     protected final CounterPanel counterPanel;
     protected List<Color> availableColours;
     private long numberSteps = 0;
-    private long numberMemories = 0;
+    private long amountOfSpace = 0;
     private int numberColors = 0;
 
     public static void restartColors(Graph graph, CounterPanel counterPanel) {
         graph.getNodeSet().forEach(n -> n.removeAttribute(COLOR_ATTRIBUTE));
-        counterPanel.setStepColorMemoryCount(0, 0, 0);
+        counterPanel.setStepColorSpaceCount(0, 0, 0);
     }
 
     public ColoringAlgorithm(CounterPanel counterPanel) {
@@ -69,16 +69,16 @@ public abstract class ColoringAlgorithm implements Algorithm {
         return numberColors;
     }
 
-    protected void incrementMemories() {
-        this.numberMemories++;
+    protected void incrementAmountOfSpace() {
+        this.amountOfSpace++;
     }
 
-    protected void incrementMemories(long n) {
-        this.numberMemories += n;
+    protected void incrementAmountOfSpace(long n) {
+        this.amountOfSpace += n;
     }
 
-    public long getNumberMemories() {
-        return numberMemories;
+    public long getAmountOfSpace() {
+        return amountOfSpace;
     }
 
     protected void countNumberColors() {

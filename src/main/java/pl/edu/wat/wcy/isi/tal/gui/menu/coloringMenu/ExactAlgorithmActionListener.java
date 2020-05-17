@@ -27,7 +27,7 @@ public class ExactAlgorithmActionListener implements ActionListener {
 //            this.counterPanel.setStepColorMemoryCount(
 //                    exactAlgorithm.getNumberSteps(),
 //                    exactAlgorithm.getNumberColors(),
-//                    exactAlgorithm.getNumberMemories()
+//                    exactAlgorithm.getAmountOfSpace()
 //            );
 
             JOptionPane.showMessageDialog(null, "No implementation ...");
