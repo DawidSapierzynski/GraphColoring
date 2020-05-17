@@ -17,6 +17,7 @@ public class GenerateActionListener implements ActionListener {
     private static final DefaultListModel<String> listModel = getListModelGenerate();
 
     private final Graph graph;
+    private final CounterPanel counterPanel;
     private int n;
     private SelectedGenerator selectedGenerator;
     private JList<String> list;
@@ -27,8 +28,9 @@ public class GenerateActionListener implements ActionListener {
         return listModel;
     }
 
-    public GenerateActionListener(Graph graph) {
+    public GenerateActionListener(Graph graph, CounterPanel counterPanel) {
         this.graph = graph;
+        this.counterPanel = counterPanel;
         this.n = 1;
         this.selectedGenerator = SelectedGenerator.RANDOM_GENERATOR;
     }
@@ -65,7 +67,7 @@ public class GenerateActionListener implements ActionListener {
     }
 
     private void setCounterPanel(Graph graph) {
-        CounterPanel.getInstance().setNodeEdgeCount(graph.getNodeCount(), graph.getEdgeCount());
+        this.counterPanel.setNodeEdgeCount(graph.getNodeCount(), graph.getEdgeCount());
     }
 
     private Generator getGenerator(SelectedGenerator selectedGenerator) {

@@ -3,6 +3,7 @@ package pl.edu.wat.wcy.isi.tal.algorithms;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.Graphs;
+import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 
 import java.awt.*;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class SLAlgorithm extends ColoringAlgorithm {
+    public SLAlgorithm(CounterPanel counterPanel) {
+        super(counterPanel);
+    }
 
     @Override
     public void compute() {
@@ -20,7 +24,7 @@ public class SLAlgorithm extends ColoringAlgorithm {
         Iterable<Node> iterableNodes;
         Set<Color> usedColors;
 
-        restartColors(this.graph);
+        restartColors(this.graph, this.counterPanel);
 
         while (copyGraph.getNodeCount() > 0 || copyGraph.getEdgeCount() > 0) {
             incrementSteps();

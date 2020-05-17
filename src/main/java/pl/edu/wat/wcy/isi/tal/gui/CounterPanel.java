@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CounterPanel extends JPanel {
-    private static CounterPanel INSTANCE = null;
-
     private int nodeCount = 0;
     private int edgeCount = 0;
     private int colorCount = 0;
@@ -18,8 +16,7 @@ public class CounterPanel extends JPanel {
     private JLabel stepCountLabel;
     private JLabel memoryCountLabel;
 
-
-    private CounterPanel() {
+    public CounterPanel() {
         initUI();
         update();
     }
@@ -39,13 +36,6 @@ public class CounterPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
-    }
-
-    public static CounterPanel getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new CounterPanel();
-        }
-        return INSTANCE;
     }
 
     public void update() {

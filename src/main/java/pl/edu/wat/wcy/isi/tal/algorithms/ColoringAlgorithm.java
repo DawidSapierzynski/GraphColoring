@@ -14,14 +14,19 @@ public abstract class ColoringAlgorithm implements Algorithm {
     public static final String COLOR_ATTRIBUTE = "ui.color";
 
     protected Graph graph;
+    protected final CounterPanel counterPanel;
     protected List<Color> availableColours;
     private long numberSteps = 0;
     private long numberMemories = 0;
     private int numberColors = 0;
 
-    public static void restartColors(Graph graph) {
+    public static void restartColors(Graph graph, CounterPanel counterPanel) {
         graph.getNodeSet().forEach(n -> n.removeAttribute(COLOR_ATTRIBUTE));
-        CounterPanel.getInstance().setStepColorMemoryCount(0, 0, 0);
+        counterPanel.setStepColorMemoryCount(0, 0, 0);
+    }
+
+    public ColoringAlgorithm(CounterPanel counterPanel) {
+        this.counterPanel = counterPanel;
     }
 
     @Override
