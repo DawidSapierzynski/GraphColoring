@@ -4,20 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CounterPanel extends JPanel {
-    private static CounterPanel INSTANCE = null;
-
     private int nodeCount = 0;
     private int edgeCount = 0;
     private int colorCount = 0;
     private long stepCount = 0;
+    private long amountOfSpace = 0;
 
     private JLabel nodeCountLabel;
     private JLabel edgeCountLabel;
     private JLabel colorCountLabel;
     private JLabel stepCountLabel;
+    private JLabel amountOfSpaceLabel;
 
-
-    private CounterPanel() {
+    public CounterPanel() {
         initUI();
         update();
     }
@@ -27,28 +26,24 @@ public class CounterPanel extends JPanel {
         this.edgeCountLabel = new JLabel();
         this.colorCountLabel = new JLabel();
         this.stepCountLabel = new JLabel();
+        this.amountOfSpaceLabel = new JLabel();
 
-        this.add(nodeCountLabel);
-        this.add(edgeCountLabel);
-        this.add(colorCountLabel);
-        this.add(stepCountLabel);
+        this.add(this.nodeCountLabel);
+        this.add(this.edgeCountLabel);
+        this.add(this.colorCountLabel);
+        this.add(this.stepCountLabel);
+        this.add(this.amountOfSpaceLabel);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
     }
 
-    public static CounterPanel getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new CounterPanel();
-        }
-        return INSTANCE;
-    }
-
     public void update() {
-        nodeCountLabel.setText("Nodes: " + nodeCount);
-        edgeCountLabel.setText("Edges: " + edgeCount);
-        colorCountLabel.setText("Colors: " + colorCount);
-        stepCountLabel.setText("Steps: " + stepCount);
+        this.nodeCountLabel.setText("Nodes: " + this.nodeCount);
+        this.edgeCountLabel.setText("Edges: " + this.edgeCount);
+        this.colorCountLabel.setText("Colors: " + this.colorCount);
+        this.stepCountLabel.setText("Steps: " + this.stepCount);
+        this.amountOfSpaceLabel.setText("Space: " + this.amountOfSpace);
     }
 
     public void setNodeEdgeCount(int nodeCount, int edgeCount) {
@@ -56,12 +51,14 @@ public class CounterPanel extends JPanel {
         this.edgeCount = edgeCount;
         this.colorCount = 0;
         this.stepCount = 0;
+        this.amountOfSpace = 0;
         update();
     }
 
-    public void setStepColorCount(long stepCount, int colorCount) {
+    public void setStepColorSpaceCount(long stepCount, int colorCount, long amountOfSpace) {
         this.stepCount = stepCount;
         this.colorCount = colorCount;
+        this.amountOfSpace = amountOfSpace;
         update();
     }
 }

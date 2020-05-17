@@ -14,13 +14,19 @@ public abstract class ColoringAlgorithm implements Algorithm {
     public static final String COLOR_ATTRIBUTE = "ui.color";
 
     protected Graph graph;
+    protected final CounterPanel counterPanel;
     protected List<Color> availableColours;
     private long numberSteps = 0;
+    private long amountOfSpace = 0;
     private int numberColors = 0;
 
-    public static void restartColors(Graph graph) {
+    public static void restartColors(Graph graph, CounterPanel counterPanel) {
         graph.getNodeSet().forEach(n -> n.removeAttribute(COLOR_ATTRIBUTE));
-        CounterPanel.getInstance().setStepColorCount(0, 0);
+        counterPanel.setStepColorSpaceCount(0, 0, 0);
+    }
+
+    public ColoringAlgorithm(CounterPanel counterPanel) {
+        this.counterPanel = counterPanel;
     }
 
     @Override
@@ -61,6 +67,18 @@ public abstract class ColoringAlgorithm implements Algorithm {
 
     public int getNumberColors() {
         return numberColors;
+    }
+
+    protected void incrementAmountOfSpace() {
+        this.amountOfSpace++;
+    }
+
+    protected void incrementAmountOfSpace(long n) {
+        this.amountOfSpace += n;
+    }
+
+    public long getAmountOfSpace() {
+        return amountOfSpace;
     }
 
     protected void countNumberColors() {

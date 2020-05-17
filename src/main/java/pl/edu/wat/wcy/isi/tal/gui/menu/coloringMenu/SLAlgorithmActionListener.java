@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 
 public class SLAlgorithmActionListener implements ActionListener {
     private final Graph graph;
+    private final CounterPanel counterPanel;
 
-    public SLAlgorithmActionListener(Graph graph) {
+    public SLAlgorithmActionListener(Graph graph, CounterPanel counterPanel) {
         this.graph = graph;
+        this.counterPanel = counterPanel;
     }
 
     @Override
@@ -20,10 +22,14 @@ public class SLAlgorithmActionListener implements ActionListener {
         if (graph.getNodeCount() == 0 && graph.getEdgeCount() == 0) {
             JOptionPane.showMessageDialog(null, "The graph is empty.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            SLAlgorithm slAlgorithm = new SLAlgorithm();
+            SLAlgorithm slAlgorithm = new SLAlgorithm(this.counterPanel);
             slAlgorithm.init(graph);
             slAlgorithm.compute();
-            CounterPanel.getInstance().setStepColorCount(slAlgorithm.getNumberSteps(), slAlgorithm.getNumberColors());
+            this.counterPanel.setStepColorSpaceCount(
+                    slAlgorithm.getNumberSteps(),
+                    slAlgorithm.getNumberColors(),
+                    slAlgorithm.getAmountOfSpace()
+            );
         }
     }
 }

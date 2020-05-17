@@ -1,6 +1,7 @@
 package pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu;
 
 import org.graphstream.graph.Graph;
+import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,9 +9,11 @@ import java.awt.event.ActionListener;
 
 public class ExactAlgorithmActionListener implements ActionListener {
     private final Graph graph;
+    private final CounterPanel counterPanel;
 
-    public ExactAlgorithmActionListener(Graph graph) {
+    public ExactAlgorithmActionListener(Graph graph, CounterPanel counterPanel) {
         this.graph = graph;
+        this.counterPanel = counterPanel;
     }
 
     @Override
@@ -21,7 +24,11 @@ public class ExactAlgorithmActionListener implements ActionListener {
 //            ExactAlgorithm exactAlgorithm = new ExactAlgorithm();
 //            exactAlgorithm.init(graph);
 //            exactAlgorithm.compute();
-//            CounterPanel.getInstance().setStepCount(exactAlgorithm.getNumberSteps());
+//            this.counterPanel.setStepColorMemoryCount(
+//                    exactAlgorithm.getNumberSteps(),
+//                    exactAlgorithm.getNumberColors(),
+//                    exactAlgorithm.getAmountOfSpace()
+//            );
 
             JOptionPane.showMessageDialog(null, "No implementation ...");
         }

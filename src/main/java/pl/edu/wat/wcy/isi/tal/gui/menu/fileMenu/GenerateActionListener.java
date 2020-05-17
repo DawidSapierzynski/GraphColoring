@@ -17,9 +17,13 @@ public class GenerateActionListener implements ActionListener {
     private static final DefaultListModel<String> listModel = getListModelGenerate();
 
     private final Graph graph;
+    private final CounterPanel counterPanel;
     private int n;
+    private int averageDegree;
     private SelectedGenerator selectedGenerator;
     private JList<String> list;
+    private JSpinner spinnerAverageDegree;
+    private JLabel spinnerLabelAverageDegree;
 
     private static DefaultListModel<String> getListModelGenerate() {
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -27,9 +31,11 @@ public class GenerateActionListener implements ActionListener {
         return listModel;
     }
 
-    public GenerateActionListener(Graph graph) {
+    public GenerateActionListener(Graph graph, CounterPanel counterPanel) {
         this.graph = graph;
+        this.counterPanel = counterPanel;
         this.n = 1;
+        this.averageDegree = 1;
         this.selectedGenerator = SelectedGenerator.RANDOM_GENERATOR;
     }
 
@@ -65,7 +71,7 @@ public class GenerateActionListener implements ActionListener {
     }
 
     private void setCounterPanel(Graph graph) {
-        CounterPanel.getInstance().setNodeEdgeCount(graph.getNodeCount(), graph.getEdgeCount());
+        this.counterPanel.setNodeEdgeCount(graph.getNodeCount(), graph.getEdgeCount());
     }
 
     private Generator getGenerator(SelectedGenerator selectedGenerator) {
@@ -75,26 +81,34 @@ public class GenerateActionListener implements ActionListener {
                     this.n = GRID_GENERATOR_MAX_STEPS;
                 }
                 return new GridGenerator();
+
             case FULL_CONNECTED_GRAPH_GENERATOR:
                 if (this.n > FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS) {
                     this.n = FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS;
                 }
                 return new FullGenerator();
+
             case WATTS_STROGATZ_GENERATOR:
-                return new WattsStrogatzGenerator(n, 4, 0.5);
+                if (this.n >= this.averageDegree) {
+                    this.averageDegree = this.n - 1;
+                }
+                return new WattsStrogatzGenerator(this.n, this.averageDegree, 0.5);
+
             case LOBSTER_GENERATOR:
                 return new LobsterGenerator();
+
             default:
-                return new RandomGenerator(4);
+                return new RandomGenerator(averageDegree);
         }
     }
 
     private JPanel getPanel() {
         JPanel panel = new JPanel();
         setListGenerator(panel);
-        setSpinner(panel);
+        setStepsSpinner(panel);
+        setAverageDegreeSpinner(panel);
 
-        panel.setPreferredSize(new Dimension(300, 100));
+        panel.setPreferredSize(new Dimension(300, 120));
         return panel;
     }
 
@@ -103,22 +117,38 @@ public class GenerateActionListener implements ActionListener {
         this.list = new JList<>(listModel);
         this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.list.setSelectedIndex(selectedGenerator.getId());
-        this.list.addListSelectionListener(e -> this.selectedGenerator = SelectedGenerator.valueOf(list.getSelectedIndex())
-                .orElse(SelectedGenerator.RANDOM_GENERATOR));
+        this.list.addListSelectionListener(e -> {
+            this.selectedGenerator = SelectedGenerator.valueOf(this.list.getSelectedIndex())
+                    .orElse(SelectedGenerator.RANDOM_GENERATOR);
+            boolean isAverageDegree = this.selectedGenerator.compareTo(SelectedGenerator.RANDOM_GENERATOR) == 0 || this.selectedGenerator.compareTo(SelectedGenerator.WATTS_STROGATZ_GENERATOR) == 0;
+            this.spinnerAverageDegree.setVisible(isAverageDegree);
+            this.spinnerLabelAverageDegree.setVisible(isAverageDegree);
+        });
         this.list.setVisibleRowCount(3);
 
         panel.add(spinnerLabel);
         panel.add(new JScrollPane(this.list));
     }
 
-    private void setSpinner(JPanel panel) {
-        JLabel spinnerLabel = new JLabel("Number of generator steps: ");
-        SpinnerModel model = new SpinnerNumberModel(this.n, 1, 1000, 1);
-        JSpinner spinner = new JSpinner(model);
+    private void setStepsSpinner(JPanel panel) {
+        JLabel spinnerLabelSteps = new JLabel("Number of generator steps: ");
+        SpinnerModel modelSteps = new SpinnerNumberModel(this.n, 1, 1000, 1);
+        JSpinner spinnerSteps = new JSpinner(modelSteps);
 
-        spinner.addChangeListener((e -> this.n = (int) spinner.getValue()));
+        spinnerSteps.addChangeListener((e -> this.n = (int) spinnerSteps.getValue()));
 
-        panel.add(spinnerLabel);
-        panel.add(spinner);
+        panel.add(spinnerLabelSteps);
+        panel.add(spinnerSteps);
+    }
+
+    private void setAverageDegreeSpinner(JPanel panel) {
+        this.spinnerLabelAverageDegree = new JLabel("The average degree of node: ");
+        SpinnerModel modelAverageDegree = new SpinnerNumberModel(this.averageDegree, 1, 1000, 1);
+        this.spinnerAverageDegree = new JSpinner(modelAverageDegree);
+
+        this.spinnerAverageDegree.addChangeListener((e -> this.averageDegree = (int) this.spinnerAverageDegree.getValue()));
+
+        panel.add(this.spinnerLabelAverageDegree);
+        panel.add(this.spinnerAverageDegree);
     }
 }

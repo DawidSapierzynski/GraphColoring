@@ -10,10 +10,12 @@ import java.awt.*;
 
 public class GraphColoringFrame extends JFrame {
     private final Graph graph;
+    private final CounterPanel counterPanel;
 
     public GraphColoringFrame() throws HeadlessException {
         this.setTitle("GraphColoring");
         this.graph = getDefaultGraph();
+        this.counterPanel = new CounterPanel();
 
         initUI();
     }
@@ -28,11 +30,9 @@ public class GraphColoringFrame extends JFrame {
     }
 
     private void initUI() {
-
-        setJMenuBar(new GraphColoringMenuBar(graph));
-        setContentPane(getDefaultView(graph));
-        setCounterPanel();
-
+        setJMenuBar(new GraphColoringMenuBar(this.graph, this.counterPanel));
+        setContentPane(getDefaultView(this.graph));
+        setCounterPanel(this.counterPanel);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(1200, 800));
@@ -41,14 +41,14 @@ public class GraphColoringFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    private void setCounterPanel() {
+    private void setCounterPanel(CounterPanel counterPanel) {
         SpringLayout springLayout = new SpringLayout();
         Container cont = getContentPane();
         cont.setLayout(springLayout);
 
-        springLayout.putConstraint(SpringLayout.WEST, CounterPanel.getInstance(), 10, SpringLayout.WEST, cont);
-        springLayout.putConstraint(SpringLayout.SOUTH, CounterPanel.getInstance(), -10, SpringLayout.SOUTH, cont);
-        cont.add(CounterPanel.getInstance());
+        springLayout.putConstraint(SpringLayout.WEST, counterPanel, 10, SpringLayout.WEST, cont);
+        springLayout.putConstraint(SpringLayout.SOUTH, counterPanel, -10, SpringLayout.SOUTH, cont);
+        cont.add(counterPanel);
     }
 
     private static JPanel getDefaultView(Graph graph) {
