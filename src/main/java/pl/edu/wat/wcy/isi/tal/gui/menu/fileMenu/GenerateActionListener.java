@@ -75,15 +75,19 @@ public class GenerateActionListener implements ActionListener {
                     this.n = GRID_GENERATOR_MAX_STEPS;
                 }
                 return new GridGenerator();
+
             case FULL_CONNECTED_GRAPH_GENERATOR:
                 if (this.n > FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS) {
                     this.n = FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS;
                 }
                 return new FullGenerator();
+
             case WATTS_STROGATZ_GENERATOR:
                 return new WattsStrogatzGenerator(n, 4, 0.5);
+
             case LOBSTER_GENERATOR:
                 return new LobsterGenerator();
+
             default:
                 return new RandomGenerator(4);
         }

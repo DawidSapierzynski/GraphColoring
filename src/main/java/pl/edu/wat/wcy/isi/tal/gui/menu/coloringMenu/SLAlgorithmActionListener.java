@@ -23,7 +23,11 @@ public class SLAlgorithmActionListener implements ActionListener {
             SLAlgorithm slAlgorithm = new SLAlgorithm();
             slAlgorithm.init(graph);
             slAlgorithm.compute();
-            CounterPanel.getInstance().setStepColorCount(slAlgorithm.getNumberSteps(), slAlgorithm.getNumberColors());
+            CounterPanel.getInstance().setStepColorMemoryCount(
+                    slAlgorithm.getNumberSteps(),
+                    slAlgorithm.getNumberColors(),
+                    slAlgorithm.getNumberMemories()
+            );
         }
     }
 }
