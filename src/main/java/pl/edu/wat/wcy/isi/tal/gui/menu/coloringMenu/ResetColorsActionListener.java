@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.isi.tal.gui.menu.coloring_menu;
+package pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu;
 
 import org.graphstream.graph.Graph;
 import pl.edu.wat.wcy.isi.tal.algorithms.ColoringAlgorithm;
