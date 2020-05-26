@@ -89,8 +89,11 @@ public class GenerateActionListener implements ActionListener {
                 return new FullGenerator();
 
             case WATTS_STROGATZ_GENERATOR:
-                if (this.n >= this.averageDegree) {
+                if (this.averageDegree >= this.n) {
                     this.averageDegree = this.n - 1;
+                }
+                if (this.averageDegree % 2 != 0) {
+                    this.averageDegree--;
                 }
                 return new WattsStrogatzGenerator(this.n, this.averageDegree, 0.5);
 
