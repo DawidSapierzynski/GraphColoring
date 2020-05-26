@@ -69,10 +69,6 @@ public class GenerateActionListener implements ActionListener {
         graph.addAttribute("ui.stylesheet", "url('style.css')");
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
-
-        for (Node n : graph.getNodeSet()) {
-            n.setAttribute("ui.label", n.getIndex());
-        }
     }
 
     private void setCounterPanel(Graph graph) {

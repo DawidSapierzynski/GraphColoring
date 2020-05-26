@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExactAlgorithm extends ColoringAlgorithm {
-    private static List<List<List<Integer>>> ret = new ArrayList<>();
-
     public ExactAlgorithm(CounterPanel counterPanel) {
         super(counterPanel);
     }
@@ -21,40 +19,49 @@ public class ExactAlgorithm extends ColoringAlgorithm {
             for (Node n : graph) {
                 changeColor(n, availableColours.get(0));
             }
-            incrementSteps();
         } else {
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < graph.getNodeCount(); i++) {
-                list.add(i);
-            }
-            int i = 0;
-            while (!isColored && i <= list.size()) {
-                ret = generateListOfSubsets(list, i + 2);
-                for (List<List<Integer>> lists : ret) {
-                    listOfSubNodes = generateSubsets(lists);
-                    for (List<Node> l : listOfSubNodes) {
-                        isColored = isColored(l);
-                        if (!isColored) {
-                            break;
-                        }
-                    }
-                    if (isColored) {
-                        break;
-                    }
-                }
-                i++;
-                incrementSteps();
-            }
+            List<Integer> listOfIndexes = generateListOfIndexes();
+            listOfSubNodes = colorOfMultipleColors(listOfSubNodes, listOfIndexes);
             setColors(listOfSubNodes);
         }
         countNumberColors();
+    }
+
+    private List<List<Node>> colorOfMultipleColors(List<List<Node>> listOfSubNodes, List<Integer> listOfIndexes) {
+        int i = 0;
+        boolean isColored = false;
+        while (!isColored && i <= listOfIndexes.size()) {
+            List<List<List<Integer>>> listOfSubSets = generateListOfSubsets(listOfIndexes, i + 2);
+            for (List<List<Integer>> lists : listOfSubSets) {
+                listOfSubNodes = generateSubsets(lists);
+                for (List<Node> l : listOfSubNodes) {
+                    isColored = isColored(l);
+                    if (!isColored) {
+                        break;
+                    }
+                }
+                if (isColored) {
+                    break;
+                }
+            }
+            i++;
+        }
+        return listOfSubNodes;
+    }
+
+    private List<Integer> generateListOfIndexes() {
+        List<Integer> listOfIndexes = new ArrayList<>();
+        for (int i = 0; i < graph.getNodeCount(); i++) {
+            listOfIndexes.add(i);
+            incrementAmountOfSpace();
+        }
+        return listOfIndexes;
     }
 
     private void setColors(List<List<Node>> listOfSubNodes) {
         int i;
         for (i = 0; i < listOfSubNodes.size(); i++) {
             for (Node n : listOfSubNodes.get(i)) {
-                n.setAttribute("title", n.getId());
                 changeColor(n, availableColours.get(i));
             }
         }
@@ -75,6 +82,7 @@ public class ExactAlgorithm extends ColoringAlgorithm {
     }
 
     private boolean isColored(List<Node> listOfSubNodes) {
+        incrementSteps();
         for (int i = 0; i < listOfSubNodes.size() - 1; i++) {
             for (int j = i + 1; j < listOfSubNodes.size(); j++) {
                 if (listOfSubNodes.get(i).hasEdgeBetween(listOfSubNodes.get(j))) {
@@ -85,15 +93,15 @@ public class ExactAlgorithm extends ColoringAlgorithm {
         return true;
     }
 
-    private static List<List<List<Integer>>> generateListOfSubsets(List<Integer> ori, int m) {
-        List<List<List<Integer>>> ret = new ArrayList<>();
-        if (ori.size() < m || m < 1) return ret;
+    private List<List<List<Integer>>> generateListOfSubsets(List<Integer> ori, int m) {
+        List<List<List<Integer>>> listOfSubsets = new ArrayList<>();
+        if (ori.size() < m || m < 1) return listOfSubsets;
 
         if (m == 1) {
             List<List<Integer>> partition = new ArrayList<>();
             partition.add(new ArrayList<>(ori));
-            ret.add(partition);
-            return ret;
+            listOfSubsets.add(partition);
+            return listOfSubsets;
         }
 
         List<List<List<Integer>>> prev1 = generateListOfSubsets(ori.subList(0, ori.size() - 1), m);
@@ -102,10 +110,12 @@ public class ExactAlgorithm extends ColoringAlgorithm {
                 List<List<Integer>> l = new ArrayList<>();
                 for (List<Integer> inner : lists) {
                     l.add(new ArrayList<>(inner));
+                    incrementSteps();
+                    incrementAmountOfSpace();
                 }
 
                 l.get(j).add(ori.get(ori.size() - 1));
-                ret.add(l);
+                listOfSubsets.add(l);
             }
         }
 
@@ -115,9 +125,9 @@ public class ExactAlgorithm extends ColoringAlgorithm {
         for (List<List<Integer>> lists : prev2) {
             List<List<Integer>> l = new ArrayList<>(lists);
             l.add(set);
-            ret.add(l);
+            listOfSubsets.add(l);
         }
 
-        return ret;
+        return listOfSubsets;
     }
 }
