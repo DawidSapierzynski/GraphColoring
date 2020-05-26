@@ -21,13 +21,13 @@ public class ExactAlgorithm extends ColoringAlgorithm {
             }
         } else {
             List<Integer> listOfIndexes = generateListOfIndexes();
-            listOfSubNodes = colorOfMultipleColors(listOfSubNodes, listOfIndexes);
+            listOfSubNodes = listOfMultipleColors(listOfSubNodes, listOfIndexes);
             setColors(listOfSubNodes);
         }
         countNumberColors();
     }
 
-    private List<List<Node>> colorOfMultipleColors(List<List<Node>> listOfSubNodes, List<Integer> listOfIndexes) {
+    private List<List<Node>> listOfMultipleColors(List<List<Node>> listOfSubNodes, List<Integer> listOfIndexes) {
         int i = 0;
         boolean isColored = false;
         while (!isColored && i <= listOfIndexes.size()) {
