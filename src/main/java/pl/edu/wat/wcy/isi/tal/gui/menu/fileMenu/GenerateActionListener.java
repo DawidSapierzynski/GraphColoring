@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class GenerateActionListener implements ActionListener {
     private static final int GRID_GENERATOR_MAX_STEPS = 40;
     private static final int FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS = 30;
+    private static final double WATTS_STROGATZ_BETA = 0.5;
     private static final DefaultListModel<String> listModel = getListModelGenerate();
 
     private final Graph graph;
@@ -95,7 +96,7 @@ public class GenerateActionListener implements ActionListener {
                 if (this.averageDegree % 2 != 0) {
                     this.averageDegree--;
                 }
-                return new WattsStrogatzGenerator(this.n, this.averageDegree, 0.5);
+                return new WattsStrogatzGenerator(this.n, this.averageDegree, WATTS_STROGATZ_BETA);
 
             case LOBSTER_GENERATOR:
                 return new LobsterGenerator();
