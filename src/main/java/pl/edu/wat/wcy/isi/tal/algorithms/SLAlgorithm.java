@@ -20,7 +20,8 @@ public class SLAlgorithm extends ColoringAlgorithm {
     public void compute() {
         List<Node> nodes = new ArrayList<>();
         Graph copyGraph = Graphs.clone(this.graph);
-        Node minNode, coloredNode;
+        Node minNode;
+        Node coloredNode;
         Iterable<Node> iterableNodes;
         Set<Color> usedColors;
 

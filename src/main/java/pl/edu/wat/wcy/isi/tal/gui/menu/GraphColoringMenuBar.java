@@ -2,7 +2,7 @@ package pl.edu.wat.wcy.isi.tal.gui.menu;
 
 import org.graphstream.graph.Graph;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
-import pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu.ColoringMenu;
+import pl.edu.wat.wcy.isi.tal.gui.menu.coloring_menu.ColoringMenu;
 import pl.edu.wat.wcy.isi.tal.gui.menu.fileMenu.FileMenu;
 
 import javax.swing.*;

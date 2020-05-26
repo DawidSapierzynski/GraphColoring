@@ -2,7 +2,6 @@ package pl.edu.wat.wcy.isi.tal.gui.menu.fileMenu;
 
 import org.graphstream.algorithm.generator.*;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
 import pl.edu.wat.wcy.isi.tal.core.SelectedGenerator;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public abstract class ColoringAlgorithm implements Algorithm {
     public static final String COLOR_ATTRIBUTE = "ui.color";
+    public static final Random random = new Random();
 
     protected Graph graph;
     protected final CounterPanel counterPanel;
@@ -37,8 +38,9 @@ public abstract class ColoringAlgorithm implements Algorithm {
 
     private List<Color> generateColours(int n) {
         Set<Color> colors = new HashSet<>();
-        Random random = new Random();
-        int r, g, b;
+        int r;
+        int g;
+        int b;
         while (colors.size() < n) {
             r = random.nextInt(255);
             g = random.nextInt(255);
@@ -57,10 +59,6 @@ public abstract class ColoringAlgorithm implements Algorithm {
         this.numberSteps++;
     }
 
-    protected void incrementSteps(long n) {
-        this.numberSteps += n;
-    }
-
     public long getNumberSteps() {
         return numberSteps;
     }
@@ -71,10 +69,6 @@ public abstract class ColoringAlgorithm implements Algorithm {
 
     protected void incrementAmountOfSpace() {
         this.amountOfSpace++;
-    }
-
-    protected void incrementAmountOfSpace(long n) {
-        this.amountOfSpace += n;
     }
 
     public long getAmountOfSpace() {
