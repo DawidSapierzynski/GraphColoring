@@ -2,6 +2,7 @@ package pl.edu.wat.wcy.isi.tal.gui.menu.fileMenu;
 
 import org.graphstream.algorithm.generator.*;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import pl.edu.wat.wcy.isi.tal.core.SelectedGenerator;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 
@@ -68,6 +69,10 @@ public class GenerateActionListener implements ActionListener {
         graph.addAttribute("ui.stylesheet", "url('style.css')");
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
+
+        for (Node n : graph.getNodeSet()) {
+            n.setAttribute("ui.label", n.getIndex());
+        }
     }
 
     private void setCounterPanel(Graph graph) {
