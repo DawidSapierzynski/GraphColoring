@@ -59,6 +59,10 @@ public abstract class ColoringAlgorithm implements Algorithm {
         this.numberSteps++;
     }
 
+    protected void incrementSteps(int n) {
+        this.numberSteps += n;
+    }
+
     public long getNumberSteps() {
         return numberSteps;
     }

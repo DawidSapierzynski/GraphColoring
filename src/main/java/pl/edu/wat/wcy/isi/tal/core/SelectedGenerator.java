@@ -5,10 +5,8 @@ import java.util.Optional;
 
 public enum SelectedGenerator {
     RANDOM_GENERATOR(0, "Random generator"),
-    GRID_GENERATOR(1, "Generator for square grids"),
-    FULL_CONNECTED_GRAPH_GENERATOR(2, "Full connected generator"),
-    WATTS_STROGATZ_GENERATOR(3, "Watts-Strogatz generator"),
-    LOBSTER_GENERATOR(4, "Lobster generator");
+    FULL_CONNECTED_GRAPH_GENERATOR(1, "Full connected generator"),
+    LOBSTER_GENERATOR(2, "Lobster generator");
 
     private final int id;
     private final String name;

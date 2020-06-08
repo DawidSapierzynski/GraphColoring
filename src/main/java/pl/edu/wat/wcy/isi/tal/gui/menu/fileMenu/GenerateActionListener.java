@@ -1,6 +1,9 @@
 package pl.edu.wat.wcy.isi.tal.gui.menu.fileMenu;
 
-import org.graphstream.algorithm.generator.*;
+import org.graphstream.algorithm.generator.FullGenerator;
+import org.graphstream.algorithm.generator.Generator;
+import org.graphstream.algorithm.generator.LobsterGenerator;
+import org.graphstream.algorithm.generator.RandomGenerator;
 import org.graphstream.graph.Graph;
 import pl.edu.wat.wcy.isi.tal.core.SelectedGenerator;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
@@ -12,9 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.stream.Stream;
 
 public class GenerateActionListener implements ActionListener {
-    private static final int GRID_GENERATOR_MAX_STEPS = 40;
     private static final int FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS = 30;
-    private static final double WATTS_STROGATZ_BETA = 0.5;
     private static final DefaultListModel<String> listModel = getListModelGenerate();
 
     private final Graph graph;
@@ -35,13 +36,16 @@ public class GenerateActionListener implements ActionListener {
     public GenerateActionListener(Graph graph, CounterPanel counterPanel) {
         this.graph = graph;
         this.counterPanel = counterPanel;
-        this.n = 1;
+        this.n = 3;
         this.averageDegree = 1;
         this.selectedGenerator = SelectedGenerator.RANDOM_GENERATOR;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (this.n < 3) {
+            this.n = 3;
+        }
         int selection = JOptionPane.showConfirmDialog(
                 null,
                 getPanel(),
@@ -77,31 +81,19 @@ public class GenerateActionListener implements ActionListener {
 
     private Generator getGenerator(SelectedGenerator selectedGenerator) {
         switch (selectedGenerator) {
-            case GRID_GENERATOR:
-                if (this.n > GRID_GENERATOR_MAX_STEPS) {
-                    this.n = GRID_GENERATOR_MAX_STEPS;
-                }
-                return new GridGenerator();
-
             case FULL_CONNECTED_GRAPH_GENERATOR:
+                this.n--;
                 if (this.n > FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS) {
                     this.n = FULL_CONNECTED_GRAPH_GENERATOR_MAX_STEPS;
                 }
                 return new FullGenerator();
 
-            case WATTS_STROGATZ_GENERATOR:
-                if (this.averageDegree >= this.n) {
-                    this.averageDegree = this.n - 1;
-                }
-                if (this.averageDegree % 2 != 0) {
-                    this.averageDegree--;
-                }
-                return new WattsStrogatzGenerator(this.n, this.averageDegree, WATTS_STROGATZ_BETA);
-
             case LOBSTER_GENERATOR:
+                this.n--;
                 return new LobsterGenerator();
 
             default:
+                this.n -= 2;
                 return new RandomGenerator(averageDegree);
         }
     }
@@ -124,7 +116,7 @@ public class GenerateActionListener implements ActionListener {
         this.list.addListSelectionListener(e -> {
             this.selectedGenerator = SelectedGenerator.valueOf(this.list.getSelectedIndex())
                     .orElse(SelectedGenerator.RANDOM_GENERATOR);
-            boolean isAverageDegree = this.selectedGenerator.compareTo(SelectedGenerator.RANDOM_GENERATOR) == 0 || this.selectedGenerator.compareTo(SelectedGenerator.WATTS_STROGATZ_GENERATOR) == 0;
+            boolean isAverageDegree = this.selectedGenerator.compareTo(SelectedGenerator.RANDOM_GENERATOR) == 0;
             this.spinnerAverageDegree.setVisible(isAverageDegree);
             this.spinnerLabelAverageDegree.setVisible(isAverageDegree);
         });
@@ -135,8 +127,8 @@ public class GenerateActionListener implements ActionListener {
     }
 
     private void setStepsSpinner(JPanel panel) {
-        JLabel spinnerLabelSteps = new JLabel("Number of generator steps: ");
-        SpinnerModel modelSteps = new SpinnerNumberModel(this.n, 1, 1000, 1);
+        JLabel spinnerLabelSteps = new JLabel("Number of node: ");
+        SpinnerModel modelSteps = new SpinnerNumberModel(this.n, 3, 1000, 1);
         JSpinner spinnerSteps = new JSpinner(modelSteps);
 
         spinnerSteps.addChangeListener((e -> this.n = (int) spinnerSteps.getValue()));

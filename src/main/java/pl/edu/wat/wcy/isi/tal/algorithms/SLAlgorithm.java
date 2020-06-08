@@ -34,6 +34,7 @@ public class SLAlgorithm extends ColoringAlgorithm {
                     .min(Comparator.comparing(Node::getDegree))
                     .orElseThrow(NoSuchElementException::new);
 
+            incrementSteps(copyGraph.getNodeCount() + 1);
             nodes.add(this.graph.getNode(minNode.getId()));
             copyGraph.removeNode(minNode);
         }
@@ -46,7 +47,7 @@ public class SLAlgorithm extends ColoringAlgorithm {
                     .map(Color.class::cast)
                     .collect(Collectors.toSet());
 
-            incrementSteps();
+            incrementSteps((int) StreamSupport.stream(iterableNodes.spliterator(), false).count() + 1);
             changeColor(coloredNode, getFirstColor(usedColors));
         }
 
