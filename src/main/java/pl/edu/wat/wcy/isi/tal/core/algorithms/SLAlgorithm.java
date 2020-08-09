@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.isi.tal.algorithms;
+package pl.edu.wat.wcy.isi.tal.core.algorithms;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;

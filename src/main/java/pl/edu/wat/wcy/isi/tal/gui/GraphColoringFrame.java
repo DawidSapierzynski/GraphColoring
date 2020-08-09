@@ -38,7 +38,6 @@ public class GraphColoringFrame extends JFrame {
         this.setMinimumSize(new Dimension(1200, 800));
         this.pack();
         this.setVisible(true);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void setCounterPanel(CounterPanel counterPanel) {

@@ -1,7 +1,7 @@
 package pl.edu.wat.wcy.isi.tal.gui.menu.coloringMenu;
 
 import org.graphstream.graph.Graph;
-import pl.edu.wat.wcy.isi.tal.algorithms.ColoringAlgorithm;
+import pl.edu.wat.wcy.isi.tal.core.algorithms.ColoringAlgorithm;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
 
 import javax.swing.*;

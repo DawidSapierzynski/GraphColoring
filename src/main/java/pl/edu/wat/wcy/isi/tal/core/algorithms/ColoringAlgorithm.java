@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.isi.tal.algorithms;
+package pl.edu.wat.wcy.isi.tal.core.algorithms;
 
 import org.graphstream.algorithm.Algorithm;
 import org.graphstream.graph.Graph;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public abstract class ColoringAlgorithm implements Algorithm {
     public static final String COLOR_ATTRIBUTE = "ui.color";
-    public static final Random random = new Random();
+    public final Random random = new Random();
 
     protected Graph graph;
     protected final CounterPanel counterPanel;

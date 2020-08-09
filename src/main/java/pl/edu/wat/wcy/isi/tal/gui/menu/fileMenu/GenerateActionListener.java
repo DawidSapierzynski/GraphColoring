@@ -127,7 +127,7 @@ public class GenerateActionListener implements ActionListener {
     }
 
     private void setStepsSpinner(JPanel panel) {
-        JLabel spinnerLabelSteps = new JLabel("Number of node: ");
+        JLabel spinnerLabelSteps = new JLabel("Number of generator steps: ");
         SpinnerModel modelSteps = new SpinnerNumberModel(this.n, 3, 1000, 1);
         JSpinner spinnerSteps = new JSpinner(modelSteps);
 

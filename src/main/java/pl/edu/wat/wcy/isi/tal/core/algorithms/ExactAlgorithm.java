@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.isi.tal.algorithms;
+package pl.edu.wat.wcy.isi.tal.core.algorithms;
 
 import org.graphstream.graph.Node;
 import pl.edu.wat.wcy.isi.tal.gui.CounterPanel;
