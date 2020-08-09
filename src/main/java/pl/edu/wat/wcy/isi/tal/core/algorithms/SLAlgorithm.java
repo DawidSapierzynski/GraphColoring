@@ -21,9 +21,6 @@ public class SLAlgorithm extends ColoringAlgorithm {
         List<Node> nodes = new ArrayList<>();
         Graph copyGraph = Graphs.clone(this.graph);
         Node minNode;
-        Node coloredNode;
-        Iterable<Node> iterableNodes;
-        Set<Color> usedColors;
 
         restartColors(this.graph, this.counterPanel);
 
@@ -39,6 +36,14 @@ public class SLAlgorithm extends ColoringAlgorithm {
             copyGraph.removeNode(minNode);
         }
 
+        colorNode(nodes);
+        countNumberColors();
+    }
+
+    private void colorNode(List<Node> nodes) {
+        Node coloredNode;
+        Set<Color> usedColors;
+        Iterable<Node> iterableNodes;
         for (int i = nodes.size() - 1; i >= 0; i--) {
             coloredNode = nodes.get(i);
             iterableNodes = coloredNode::getNeighborNodeIterator;
@@ -50,8 +55,6 @@ public class SLAlgorithm extends ColoringAlgorithm {
             incrementSteps((int) StreamSupport.stream(iterableNodes.spliterator(), false).count() + 1);
             changeColor(coloredNode, getFirstColor(usedColors));
         }
-
-        countNumberColors();
     }
 
     private Color getFirstColor(Set<Color> usedColors) {
